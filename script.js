@@ -87,9 +87,9 @@ const dataInput = {
     
 
     localStorage.setItem("dataInput", JSON.stringify(dataInput));
-    // setTimeout(function (){
-    //   location.reload
-    // },2000)
+    setTimeout(function (){
+      location.reload
+    },2000)
   }
 
  
