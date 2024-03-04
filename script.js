@@ -12,11 +12,12 @@ const inputState = document.querySelector("#state");
 const form = document.querySelector("#form");
 
 form.addEventListener("submit", (event) => {
-    event.preventdefault();
+    event.preventDefault();
     
    
-        
+
     dataLocalStorage()
+    
 
    });
 
@@ -82,18 +83,24 @@ const dataInput = {
       city: inputCity.value,
       state: inputState.value,
     };
-  
+
+    
+
     localStorage.setItem("dataInput", JSON.stringify(dataInput));
+    // setTimeout(function (){
+    //   location.reload
+    // },2000)
   }
 
+ 
   function alert(){
-  Swal.fire({
-    title: "Seu formulário foi enviado!",
-    icon: "success",
-    showConfirmButton: false,
-    timer: 1500
-  });
-}
+    Swal.fire({
+      title: "Seu formulário foi enviado!",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+  
 
-//tes teste
-
+  
