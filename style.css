@@ -48,3 +48,12 @@ button{
 button:disabled{
     cursor: default;
 }
+
+.table-consult{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 350px;
+    width: 80%;
+  }
+  

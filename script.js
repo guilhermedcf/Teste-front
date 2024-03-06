@@ -14,7 +14,6 @@ form.addEventListener("submit", (ev) => {
   ev.preventDefault();
 
   dataLocalStorage();
-
   form.reset();
 });
 
@@ -81,6 +80,7 @@ function dataLocalStorage() {
   const dataInput = {
     name: inputName.value,
     Surname: inputSurname.value,
+    birth: inputData.value,
     CPF: inputCpf.value,
     cep: inputCep.value,
     Address: inputAddress.value,
@@ -91,9 +91,6 @@ function dataLocalStorage() {
   };
 
   localStorage.setItem("dataInput", JSON.stringify(dataInput));
-  setTimeout(function () {
-    location.reload;
-  }, 3000);
 }
 
 function alert() {
@@ -104,3 +101,55 @@ function alert() {
     timer: 1500,
   });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const getIdDiv = document.querySelector("#itensLocalStorage");
+
+  const dataInputJSON = localStorage.getItem("dataInput");
+
+  if (dataInputJSON) {
+    const dataInput = JSON.parse(dataInputJSON);
+
+    const heading = document.createElement("h3");
+    heading.textContent = "Tabela de Consulta";
+    heading.style.marginBottom = "9px";
+    getIdDiv.appendChild(heading);
+
+    const dataList = document.createElement("ul");
+
+    const nameDataTable = {
+      name: "Nome",
+      surname: "Sobrenome",
+      birth: "Data de Nascimento",
+      CPF: "CPF",
+      cep: "Cep",
+      address: "Endereço",
+      number: "Numero",
+      complement: "Complemento",
+      city: "Cidade",
+      state: "Estado",
+    };
+
+    for (const field in dataInput) {
+      const label = nameDataTable[field] || field;
+      const fieldText = `${dataInput[field]}`;
+      const listItem = document.createElement("p");
+      listItem.textContent = fieldText;
+
+      if (nameDataTable[field]) {
+        const labelSpan = document.createElement("span");
+        labelSpan.textContent = `${label}: `;
+        labelSpan.style.fontWeight = "bold";
+        listItem.insertBefore(labelSpan, listItem.firstChild);
+      }
+
+      dataList.appendChild(listItem);
+    }
+
+    getIdDiv.appendChild(dataList);
+  } else {
+    const noDataMessage = document.createElement("p");
+    noDataMessage.textContent = "Nenhum dado armazenado em LocalStorage";
+    getIdDiv.appendChild(noDataMessage);
+  }
+});

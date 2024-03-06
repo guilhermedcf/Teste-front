@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
-    <section>
+
         <form id="form">
             <fieldset>
                 <div class="part-list">
@@ -20,44 +20,55 @@
                     <label for="surname">Sobrenome:</label>
                     <input type="text" id="surname" placeholder="Sobrenomne" required onchange="desativeButton()">
                 </div>
+
                 <div class="part-list">
                     <label for="cpf">CPF:</label>
                     <input type="text" id="cpf" placeholder="CPF" maxlength="14" required onchange="desativeButton()">
                 </div>
+
                 <div class="part-list">
                     <label for="date">Data de Nascimento:</label>
                     <input type="date" id="date" placeholder="Data de nascimento" required onchange="desativeButton()">
                 </div>
+
                 <div class="part-list">
                     <label for="cep">CEP:</label>
                     <input type="text" id="cep" placeholder="CEP"  maxlength="9" required onchange="desativeButton()">
+
                 </div>
                 <div class="part-list">
                     <label for="address">Endereço:</label>
                     <input type="text" id="address" placeholder="Endereço" required onchange="desativeButton()">
                 </div>
+
                 <div class="part-list">
                     <label for="number">Número:</label>
                     <input type="number" id="number" placeholder="Número" required onchange="desativeButton()">
                 </div>
+
                 <div class="part-list">
                     <label for="complement">Complemento:</label>
                     <input type="text" id="complement" placeholder="Complemento" required onchange="desativeButton()">
                 </div>
+
                 <div class="part-list">
                     <label for="city">Cidade:</label>
                     <input type="text" id="city" placeholder="Cidade" required onchange="desativeButton()">
                 </div>
+
                 <div class="part-list">
                     <label for="state">Estado:</label>
                     <input type="text" id="state" placeholder="EStado" required onchange="desativeButton()">
                 </div>
+
                 <div class="button-submit">
                     <button type="submit" onclick="alert()" id="login" disabled >Cadastrar</button>
-                        
                 </div>
+
             </fieldset>
         </form>
-    </section>
+        <div class="table-consult">
+            <div id="itensLocalStorage"></div>
+            </div>
 </body>
 </html>
