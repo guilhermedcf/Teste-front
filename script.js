@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getIdDiv.appendChild(dataList);
   } else {
     const noDataMessage = document.createElement("p");
-    noDataMessage.textContent = "Nenhum dado armazenado em LocalStorage";
+    
     getIdDiv.appendChild(noDataMessage);
   }
 });
