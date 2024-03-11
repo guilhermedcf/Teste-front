@@ -46,7 +46,9 @@ button{
 }
 
 button:disabled{
-    cursor: default;
+    cursor: not-allowed;
+    background-color: #f4f4f4; 
+    color: #888; 
 }
 
 .table-consult{
@@ -55,5 +57,17 @@ button:disabled{
     border-radius: 10px;
     max-width: 350px;
     width: 80%;
-  }
-  
+    margin-left:37%;
+    margin-top: 20px;
+}
+
+.field-checked{
+    display: none;
+    font-size: #eb0707;
+    font-size: 17px;
+}
+.span-error{
+    display: block;
+    color:#eb0707;
+}
+

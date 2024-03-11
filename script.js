@@ -9,13 +9,107 @@ const inputComplement = document.querySelector("#complement");
 const inputCity = document.querySelector("#city");
 const inputState = document.querySelector("#state");
 const form = document.querySelector("#form");
+const messengerError = document.querySelectorAll(".field-checked");
 
 form.addEventListener("submit", (ev) => {
   ev.preventDefault();
 
   dataLocalStorage();
   form.reset();
+
+  setTimeout(function() {
+    location.reload();
+  }, 2000);
+
 });
+
+function setError(input) {
+  const classCamp = input.parentElement;
+  const messengerError = classCamp.querySelector(".field-checked");
+  messengerError.classList.add("span-error");
+  input.classList.remove("validate");
+  return false;
+}
+
+function removeError(input) {
+  const classCamp = input.parentElement;
+  const messengerError = classCamp.querySelector(".field-checked");
+  messengerError.classList.remove("span-error");
+  input.classList.add("validate");
+  return true;
+}
+
+
+
+function validateName(input) {
+  if (inputName.value.length < 3) {
+    setError(input);
+  } else {
+    removeError(input);
+  }
+}
+
+function validateSurname(input) {
+  if (inputSurname.value.length < 2) {
+    setError(input);
+  } else {
+    removeError(input);
+  }
+}
+
+////////////////
+
+const validarCPF = (cpf) => {
+
+  cpf = cpf.replace(/\D/g,'')
+
+  if(cpf.length !==11){
+
+    console.error('CPF inválido, documento nao possui 11 caracteres')
+
+    return
+    }
+
+    const proximoDigitoVerificador = (cpfIncompleto) => {
+      let soamtoria = 0
+
+     for (let i = 0; i < cpfIncompleto.length; i++) {
+      const digitoAtual = cpfIncompleto.charAt(i);
+
+      let constante = (cpfIncompleto.length + 1 - i)
+      
+      soamtoria += Number(digitoAtual) * constante
+
+     }
+
+     const resto = soamtoria % 11
+
+     return resto < 2 ?  "0" : (11 - resto).toString()
+
+    } 
+
+    let primeiroDigitoVerificador = proximoDigitoVerificador(cpf.substring(0,9))    
+    let segundoDigitoVerificador  = proximoDigitoVerificador(cpf.substring(0,9) + primeiroDigitoVerificador)
+
+    let cpfCorreto = cpf.substring(0,9) + primeiroDigitoVerificador + segundoDigitoVerificador
+
+
+      if(cpf != cpfCorreto){
+        console.error('CPF Invalido. Digitos verificadores nao conferem')
+
+        return 
+      }
+
+      console.log("CPF valido")
+
+      return true
+}
+
+validarCPF("121.987.777.-89")
+
+////////////
+
+
 
 function validadateCpf(cpf) {
   cpf = cpf.replace(/\D/g, "");
@@ -23,6 +117,7 @@ function validadateCpf(cpf) {
   cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
   cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   return cpf;
+
 }
 function formattingCpf() {
   let input = document.querySelector("#cpf");
@@ -32,7 +127,7 @@ function formattingCpf() {
 }
 document.querySelector("#cpf").addEventListener("input", formattingCpf);
 
-function ValidateCep(cep) {
+function maskCep(cep) {
   cep = cep.replace(/\D/g, "");
   cep = cep.replace(/(\d{5})(\d)/, "$1-$2");
   return cep;
@@ -41,10 +136,43 @@ function ValidateCep(cep) {
 function formattingCep() {
   let input = document.querySelector("#cep");
   let selectedValue = input.value;
-  selectedValue = ValidateCep(selectedValue);
+  selectedValue = maskCep(selectedValue);
   input.value = selectedValue;
 }
 document.querySelector("#cep").addEventListener("input", formattingCep);
+
+function validateCep(input){
+  
+  if (inputCep.value.length < 8) {
+    setError(input);
+  } else {
+    removeError(input);
+  }
+}
+
+
+const apiCep = (cep) => {
+  let endpoint = "https://viacep.com.br/ws/" + cep + "/json/";
+
+  fetch(endpoint, {
+    method: "GET",
+    headers: { "content-type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      inputAddress.value = result.logradouro;
+      inputCity.value = result.localidade;
+      inputState.value = result.uf;
+    })
+    .catch((erro) => console.log(erro));
+};
+
+inputCep.addEventListener("input", () => {
+  if (inputCep.value.length > 7) {
+    apiCep(inputCep.value);
+  }
+});
+
 
 function desativeButton() {
   const inputName = document.querySelector("#name").value;
